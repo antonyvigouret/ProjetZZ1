@@ -38,7 +38,7 @@ Bool isNumber(char* p_str)
 /*-------------------------------------------------------------------------------------------------------*/
 
 
-/*[Génère automatiquement un fichier d'entree exploitble par la suite pour gurobi]
+/*[Génère automatiquement un fichier d'entree exploitable par la suite pour gurobi]
 Entree : 
     - nbBinome (int) : Nombre de binôme souhaité dans le fichier
     - nbProjet (int) : Nombre de projet souhaité dans le fichier
@@ -51,8 +51,10 @@ Sortie :
 void GenerateurDonneesEntree(int nbBinome, int nbProjet, int nbChoix)
 {
     int i, j;
+    FILE *fic;
+    
     srand(time(0));
-    FILE *fic = fopen("Test_G.txt", "w"); /*Création du fichier*/
+    fic = fopen("Test_G.txt", "w"); /*Création du fichier*/
     
     fprintf(fic, "%d %d %d\n", nbBinome, nbProjet, nbChoix); /*Ecriture première ligne*/
 
