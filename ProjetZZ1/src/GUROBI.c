@@ -5,9 +5,10 @@
 #include <stdio.h>
 
 /*Fichiers*/
-#include "gurobi_c.h"
+#include "../include/gurobi_c.h"
 #include "../include/matrice.h"
 #include "../include/GUROBI.h"
+#include "../include/generer_entree.h"
 
 
 /*-------------------------------------------------------------------------------------------------------*/
@@ -17,7 +18,7 @@
 */
 
 
-void LancementGurobi1(char Fichier)
+void LancementGurobi1(char *Fichier)
 {
   /*Declarations*/
   GRBenv   *env   = NULL;
@@ -224,7 +225,6 @@ void LancementGurobi1(char Fichier)
     }
   }
 
-  return 0;
 }
 
 
@@ -235,12 +235,11 @@ void LancementGurobi2()
 {
 
   /*Demande de nbBinome, nbProjet, nbChoix*/
+  int nbBinome, nbProjet, nbChoix;
   printf("\n=======FICHIER D'ENTREE A GENERER ALEATOIREMENT=======\n");
-  printf("Donnez\n");
+  printf("Donnez le nombre de binome puis de projet et enfin de choix\n");
 
-  fscanf("nbBinome : %d", &nbBinome);
-  fscanf("nbProjet : %d", &nbProjet);
-  fscanf("nbChoix : %d", &nbChoix);
+  scanf("%d %d %d", &nbBinome, &nbProjet, &nbChoix);
 
   GenerateurDonneesEntree(nbBinome, nbProjet, nbChoix);
   LancementGurobi1("Test_G.txt");
