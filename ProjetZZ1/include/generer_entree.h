@@ -1,4 +1,4 @@
-#include __GENERE_H__
+#ifndef __GENERE_H__
 #define __GENERE_H__
 
 
