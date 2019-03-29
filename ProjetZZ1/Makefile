@@ -4,7 +4,7 @@ EXEC = prog
 # COMPILER
 CC = gcc
 # Compilation Options
-C_FLAGS = -L/home/antony/Bureau/gurobi810/linux64/lib -I/home/antony/Bureau/gurobi810/linux64/include -lgurobi81 -lm -Wall -ansi -pedantic -Wextra -g -O2
+C_FLAGS = -L/home/Downloads/gurobi801/linux64/lib -I/home/Downloads/gurobi801/linux64/include -lgurobi80 -lm -Wall -ansi -pedantic -Wextra -g -O2
 # Compilation Libs
 LIBS =
 # Libs Options
