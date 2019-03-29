@@ -1,38 +1,16 @@
-# PROJECTS NAMES
-EXEC = prog
+FLAGS = -I/home/antony/Bureau/gurobi810/linux64/include -L/home/antony/Bureau/gurobi810/linux64/lib -lgurobi81 -lm -g -Wall -Wextra -ansi -pedantic
 
-# COMPILER
-CC = gcc
-# Compilation Options
-C_FLAGS = -L/home/Downloads/gurobi801/linux64/lib -I/home/Downloads/gurobi801/linux64/include -lgurobi80 -lm -Wall -ansi -pedantic -Wextra -g -O2
-# Compilation Libs
-LIBS =
-# Libs Options
-L_FLAGS =
+prog: main.o matrice.o generer_entree.o GUROBI.o
+	gcc -o prog main.o matrice.o generer_entree.o GUROBI.o ${FLAGS}
 
-# All sources files
-MAIN = main.c
-SOURCES = $(wildcard src/*.c)
+main.o: main.c 
+	gcc -o main.o -c main.c ${FLAGS}
 
-# All objects files from sources
-OBJ = $(SOURCES:.c=.o) $(MAIN:.c=.o)
+matrice.o: src/matrice.c
+	gcc -o matrice.o -c src/matrice.c ${FLAGS}
 
+generer_entree.o : src/generer_entree.c
+	gcc -o generer_entree.o -c src/generer_entree.c ${FLAGS}
 
-###   BUILDS   ####
-all: $(EXEC)
-
-$(EXEC) : $(OBJ)
-	$(CC) $(OBJ) $(LIBS) $(L_FLAGS) -o $@
-
-clean:
-	rm -f $(OBJ)
-
-# Build object file
-matrice.o: include/matrice.h src/matrice.c
-	$(CC) -c matrice.c $(C_FLAGS)
-generer_entree.o: include/generer_entree.h src/generer_entree.c
-	$(CC) -c generer_entree.c $(C_FLAGS)
-GUROBI.o: include/matrice.h include/gurobi_c.h include/GUROBI.h src/GUROBI.c
-	$(CC) -c GUROBI.c $(C_FLAGS)
-main.o : include/GUROBI.h include/generer_entree.h main.c
-	$(CC) -c main.c $(C_FLAGS)
+GUROBI.o : src/GUROBI.c
+	gcc -o GUROBI.o -c src/GUROBI.c ${FLAGS}
