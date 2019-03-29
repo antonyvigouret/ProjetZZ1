@@ -1,6 +1,6 @@
 /*[INCLUDES]*/
 /*Ficher*/
-#include "matrice.h"
+#include "../include/matrice.h"
 
 
 /*-------------------------------------------------------------------------------------------------------*/
@@ -64,7 +64,7 @@ Datas_t* FichierEnStructureDatas(FILE *fic)
 
 
 /*-------------------------------------------------------------------------------------------------------*/
-/*[/*Création de la matrice d'entrée ( pour gurobi) à partir de la structure]
+/*[Création de la matrice d'entrée ( pour gurobi) à partir de la structure]
 Entree : 
     - Datas (Datas_t *) : Pointeur de la structure de donnees
 
@@ -194,30 +194,3 @@ Entree :
 Sortie : 
     - void
 */
-
-void GenerateurDonneesEntree(int nbBinome, int nbProjet, int nbChoix)
-{
-    int i, j;
-    srand(time(0)); /*Fonction pour aléatoire*/
-    FILE *fic = fopen("Test_G", "w"); /*Création du fichier*/
-    
-    fprintf(fic, "%d %d %d\n", nbBinome, nbProjet, nbChoix); /*Ecriture première ligne*/
-
-    for (i = 0; i < nbChoix; i++) /*Ecriture de la 2ieme ligne = poids allant de 1 à nbChoix*/
-    {
-        fprintf(fic, "%d ", i+1);
-    }
-    fprintf(fic, "\n");
-
-    for (i = 0; i < nbBinome; i++) /*Ecriture de 'nbBinome' lignes avec 'nbProjet' colonnes*/ 
-    {
-        fprintf(fic, "%d ", i+1);
-        for (j = 0; j < nbChoix; j++)
-        {
-            fprintf(fic, "%d ", rand()%nbProjet+1); /*Chaque coefficient est donné de facon aleatoire entre 1 et 'nbProjet'*/
-        }
-        fprintf(fic, "\n"); /*Changement de ligne*/
-    }
-
-    fclose(fic);
-}
