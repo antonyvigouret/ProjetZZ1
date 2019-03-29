@@ -30,7 +30,7 @@ int main(int argc, char * argv[])
     else 
     {
         if(!isNumber(argv[1]))
-            fprintf("ERREUR : Argument n'est pas un entier");
+            fprintf(stderr, "ERREUR : Argument n'est pas un entier");
         else 
         {
             switch(atoi(argv[1])) 
