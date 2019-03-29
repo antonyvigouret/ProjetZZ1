@@ -7,6 +7,6 @@
 
 /*[PROTOTYPE]*/
 void LancementGurobi2(void);
-void LancementGurobi1(char Fichier);
+void LancementGurobi1(char *Fichier);
 
 #endif
