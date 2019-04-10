@@ -160,6 +160,7 @@ void LancementGurobi1(char *Fichier)
       printf("\nOptimization complete\n");
       if (optimstatus == GRB_OPTIMAL) 
       {
+        j = 0;
         printf("Optimal objective: %.4e\n", objval);
         for (i = 0; i < taille; i++)
         {
@@ -206,7 +207,7 @@ void LancementGurobi1(char *Fichier)
       free(obj);
       free(vtype);
 
-      /*Liberation de la mtrice matrice et de la structure Datas_t*/
+      /*Liberation de la matrice matrice et de la structure Datas_t*/
       for (i = 0; i < Datas->nbBinome; i++)
       {
         free(matrice[i]); /*Liberation de chaque ligne de la matrice*/
@@ -214,10 +215,16 @@ void LancementGurobi1(char *Fichier)
         free(Datas->res[i]);
       }
 
+      for (i = 0; i < Datas->nbProjet; i++)
+      {
+        free(Datas->correspondance[i]);
+      }
+
       free(matrice);
       free(Datas->poids);
       free(Datas->choix);
       free(Datas->res);
+      free(Datas->correspondance);
       free(Datas);
 
 
@@ -240,6 +247,7 @@ void LancementGurobi2()
   printf("Donnez le nombre de binome puis de projet et enfin de choix\n");
 
   scanf("%d %d %d", &nbBinome, &nbProjet, &nbChoix);
+
 
   GenerateurDonneesEntree(nbBinome, nbProjet, nbChoix);
   LancementGurobi1("Test_G.txt");
