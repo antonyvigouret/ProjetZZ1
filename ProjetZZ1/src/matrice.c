@@ -6,7 +6,7 @@
 /*-------------------------------------------------------------------------------------------------------*/
 /*[Affecter les données contenues dans le fichier d'entrée dans une structure]
 Entree : 
-    - fil (FILE *) : Pointeur du fichier d'entrée qui contient l'ensemble des données d'entrée
+    - fic (FILE *) : Pointeur du fichier d'entrée qui contient l'ensemble des données d'entrée
 
 Sortie : 
     - Datas (Datas_t *) : Pointeur vers Datas_t
@@ -14,7 +14,7 @@ Sortie :
 
 Datas_t* FichierEnStructureDatas(FILE *fic)
 {
-    int i, j;
+    int i, j, k, tmp;
     Datas_t *Datas = malloc(sizeof(Datas_t));
 
     if(Datas == NULL)
@@ -46,13 +46,32 @@ Datas_t* FichierEnStructureDatas(FILE *fic)
         exit(EXIT_FAILURE);
     }
 
+    Datas->correspondance = malloc(sizeof(int *)*(Datas->nbProjet));
+    
+    for (i = 0; i < Datas->nbProjet; i++)
+    {
+        Datas->correspondance[i] = malloc(sizeof(int)*2);
+        Datas->correspondance[i][0] = i+1;
+        Datas->correspondance[i][1] = -1;
+    }
+
     /*Récupération des choix de projet(j) pour chaque binôme(i)*/
     for (i = 0; i < Datas->nbBinome; i++)
     {
         Datas->choix[i] = malloc(sizeof(int)*(Datas->nbChoix+1));
-        for (j = 0; j < Datas->nbChoix + 1; j++)
+        /*Récupération du numéro du binome*/
+        fscanf(fic, "%d", &(Datas->choix[i][0]));
+
+        for (j = 0; j < Datas->nbChoix; j++)
         {
-            fscanf(fic, "%d", &(Datas->choix[i][j]));   
+            fscanf(fic, "%d", &tmp);
+            k = 0;
+            while (Datas->correspondance[k][1] != -1 && Datas->correspondance[k][1] != tmp)
+            {
+                k++;
+            }
+            Datas->correspondance[k][1] = tmp;
+            Datas->choix[i][j+1] = k+1;
         }
     }
 
@@ -89,7 +108,7 @@ int** StructureEnMatrice(Datas_t *Datas)
         matrice[i] = malloc(sizeof(int)*Datas->nbProjet);
         for (j = 0; j < Datas->nbProjet; j++) /*Pour chaquye coefficient de la mtrice, on l'initialise à 0*/
         {
-            matrice[i][j] = 0;
+            matrice[i][j] = 10000;
             for (k = 0; k < Datas->nbChoix; k++)
             {
                 if (Datas->choix[i][k+1] == j+1) /*Si le projet est choisi par le binôme, on l'inscrit dans la matrice...*/
@@ -169,28 +188,36 @@ Sortie :
 
 void CreationFichierDeSortie(double *sol, Datas_t *Datas)
 {
-    int i;
+    int i, j, numProjet;
     int taille = (Datas->nbBinome)*(Datas->nbProjet);
 
     FILE* fic = fopen("fichierDeSortie", "w"); /*Création de 'fichierDeSortie' s'il nexiste pas déjà*/
 
     for (i = 0; i < taille; i++)
     {
-        if (sol[i] == 1) 
-            fprintf(fic, "%d %d\n", Datas->choix[i/Datas->nbProjet][0], i%Datas->nbProjet + 1); /*Ecriture dans fichier*/
+        if (sol[i] == 1)
+        {    
+            j = 0;
+            /* Récupération du vrai numéro de projet grâce au tableau des correspondances */
+            while (Datas->correspondance[j][0] != i%Datas->nbProjet + 1)
+            {
+                j++;
+            }
+
+            /* Le numéro du projet affiché sera -1 si le projet proposé ne fait pas parti des choix du binôme */
+            if (NumChoix_BinomeProjet(Datas, Datas->choix[i/Datas->nbProjet][0], i%Datas->nbProjet + 1) == -1)
+            {
+                numProjet = -1;
+            }else
+            {
+                numProjet = Datas->correspondance[j][1];
+            }
+            
+            fprintf(fic, "%d %d\n", Datas->choix[i/Datas->nbProjet][0], numProjet); /*Ecriture dans fichier*/
+        }
     }
 
     fclose(fic); /*Fermeture fichier*/
 }
 
 
-/*-------------------------------------------------------------------------------------------------------*/
-/*[Génère automatiquement un fichier d'entree exploitble par la suite pour gurobi]
-Entree : 
-    - nbBinome (int) : Nombre de binôme souhaité dans le fichier
-    - nbProjet (int) : Nombre de projet souhaité dans le fichier
-    - nbChoix (int)  : Nombre de choix laissé à chaque binôme
-
-Sortie : 
-    - void
-*/
