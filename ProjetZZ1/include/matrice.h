@@ -21,6 +21,7 @@ typedef struct donneesEntree
     int  *poids;
     int **choix;
     int **res;
+    int **correspondance;
 } Datas_t;
 
 
