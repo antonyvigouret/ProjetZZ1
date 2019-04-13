@@ -58,8 +58,8 @@ void GenerateurDonneesEntree(int nbBinome, int nbProjet, int nbChoix)
     
     fprintf(fic, "%d %d %d\n", nbBinome, nbProjet, nbChoix); /*Ecriture première ligne*/
 
-    for (i = 0; i < nbChoix; i++) /*Ecriture de la 2ieme ligne = poids allant de 1 à nbChoix*/
-    {
+    for (i = 0; i < nbChoix; i++) /*Ecriture de la 2ieme ligne = poids allant de 1 à nbChoix. Ici, on considère les poids                                 */
+    {                             /*1, 2, 3, ...., nbChoix mais on peut facilement changer les valeurs de ces poids dans la boucle for*/
         fprintf(fic, "%d ", i+1);
     }
     fprintf(fic, "\n");
