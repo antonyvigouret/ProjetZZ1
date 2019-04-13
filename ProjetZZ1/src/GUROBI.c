@@ -13,7 +13,7 @@
 
 /*-------------------------------------------------------------------------------------------------------*/
 /*
-* Quoiqu'il arrive, cdette 'LancementGurobi1()' est appelée, seul le fichier d'entrée change suivant si l'on veut un 
+* Quoiqu'il arrive, la fonction 'LancementGurobi1()' est appelée, seul le fichier d'entrée change suivant si l'on veut un 
 * fichier en entrée qui a été généré aléatoirement ou bien créé par l'utilisateur
 */
 
@@ -207,7 +207,7 @@ void LancementGurobi1(char *Fichier)
       free(obj);
       free(vtype);
 
-      /*Liberation de la matrice matrice et de la structure Datas_t*/
+      /*Liberation de la matrice 'matrice' et de la structure 'Datas_t'*/
       for (i = 0; i < Datas->nbBinome; i++)
       {
         free(matrice[i]); /*Liberation de chaque ligne de la matrice*/
