@@ -46,12 +46,15 @@ Datas_t* FichierEnStructureDatas(FILE *fic)
         exit(EXIT_FAILURE);
     }
 
+    /*Les numeros de projets données dans le fichier d'entrée de Mme Chabrol ne sont pas toujours des numéros allant de 1 à 'NbProjet'*/
+    /*Néanmoins, Gurobi a besoin d'entiers allant de 1 à 'NbProjet' pour la résolution. Nous créons donc un tableau de correspondances*/
+    /*Pour récupérer le vrai numéro de projet et donner un fichier de sortie que Mme Chabrol peut lire facilement.*/
     Datas->correspondance = malloc(sizeof(int *)*(Datas->nbProjet));
     
     for (i = 0; i < Datas->nbProjet; i++)
     {
         Datas->correspondance[i] = malloc(sizeof(int)*2);
-        Datas->correspondance[i][0] = i+1;
+        Datas->correspondance[i][0] = i+1; /*Initilisation de la première colonne du tableau de correspondance 1 à 'NbProjet'*/
         Datas->correspondance[i][1] = -1;
     }
 
@@ -70,7 +73,7 @@ Datas_t* FichierEnStructureDatas(FILE *fic)
             {
                 k++;
             }
-            Datas->correspondance[k][1] = tmp;
+            Datas->correspondance[k][1] = tmp; /*Completer tableau de correspodance avec les vrais numéros de projets*/
             Datas->choix[i][j+1] = k+1;
         }
     }
@@ -221,3 +224,4 @@ void CreationFichierDeSortie(double *sol, Datas_t *Datas)
 }
 
 
+/*-------------------------------------------------------------------------------------------------------*/
