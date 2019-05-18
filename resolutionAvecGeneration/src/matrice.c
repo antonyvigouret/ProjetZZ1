@@ -6,8 +6,8 @@
 /*-------------------------------------------------------------------------------------------------------*/
 /*[Affecter les données contenues dans le fichier d'entrée dans une structure]
 Entree : 
-    - fic (FILE *) : Pointeur du fichier d'entrée qui contient l'ensemble des données d'entrée
-
+    - fic1 (FILE *) : Pointeur du fichier d'entrée qui contient l'ensemble des données d'entrée
+    - fic2 (FILE *) : Pointeur du fichier d'entrée qui contient la liste de tous les projets disponibles
 Sortie : 
     - Datas (Datas_t *) : Pointeur vers Datas_t
 */
@@ -191,7 +191,6 @@ int NumChoix_BinomeProjet(Datas_t *Datas, int numBinome, int numProjet)
 /*[Creation du fichier du sortie sous forme de tableau (N° de binôme, N° de projet obtenu)]
 Entree : 
     - Datas (Datas_t *) : Pointeur de la structure de donnees
-    - sol (double *)    : Pointeur de double contenant les solutions (après résolution par gurobi)
 
 Sortie : 
     - void
