@@ -7,7 +7,7 @@
 /*[Affecter les données contenues dans le fichier d'entrée dans une structure]
 Entree : 
     - fic1 (FILE *) : Pointeur du fichier d'entrée qui contient l'ensemble des données d'entrée
-	- fic2 (FILE* ) : Pointeur du fichier d'entrée qui contient la liste des projets disponibles
+    - fic2 (FILE* ) : Pointeur du fichier d'entrée qui contient la liste des projets disponibles
 Sortie : 
     - Datas (Datas_t *) : Pointeur vers Datas_t
 */
