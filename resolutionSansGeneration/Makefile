@@ -1,5 +1,6 @@
-INC = -I/home/antony/Bureau/gurobi810/linux64/include
-LIB = -L/home/antony/Bureau/gurobi810/linux64/lib -lgurobi81 
+# Pour trouver le chemin vers gurobi il faut utiliser : whereis gurobi.sh
+INC = -I/opt/gurobi/gurobi810/linux64/include
+LIB = -L/opt/gurobi/gurobi810/linux64/lib -lgurobi81 
 FLAGS = ${INC} ${LIB} -lm -g -Wall -Wextra -ansi -pedantic -O2
 
 prog: main.o matrice.o GUROBI.o
