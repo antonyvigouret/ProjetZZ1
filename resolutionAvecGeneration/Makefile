@@ -1,4 +1,7 @@
-FLAGS = -I/home/antony/Bureau/gurobi810/linux64/include -L/home/antony/Bureau/gurobi810/linux64/lib -lgurobi81 -lm -g -Wall -Wextra -ansi -pedantic -O2
+# Pour trouver le chemin vers gurobi il faut utiliser : whereis gurobi.sh
+INC = -I/opt/gurobi/gurobi810/linux64/include
+LIB = -L/opt/gurobi/gurobi810/linux64/lib -lgurobi81 
+FLAGS = {INC} {LIB} -lm -g -Wall -Wextra -ansi -pedantic -O2
 
 prog: main.o matrice.o generer_entree.o GUROBI.o
 	gcc -o prog edition/main.o edition/matrice.o edition/generer_entree.o edition/GUROBI.o ${FLAGS}
