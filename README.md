@@ -1,1 +1,1 @@
-# ProjetZZ1 - Affectation des projets aux ZZ1
+# Projet scolaire - Affectation des projets aux étudiants
